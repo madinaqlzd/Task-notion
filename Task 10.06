@@ -1,0 +1,6 @@
+/*1. DDL Operation (CREATE)
+Write a SQL statement to create a new table named 'new_employees' that has the same structure as the 'employees' table.*/
+create table new_employees as select * from employees where 1=2;
+
+/*2. DML Operation (INSERT)
+Write a SQL statement to insert a new record into the 'employees' table. Use your own values for the data.*/
