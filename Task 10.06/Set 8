@@ -1,0 +1,25 @@
+/*1. SELECT with multiple JOINS
+Write a SQL statement to display the employee's name, their manager's name and the department name.*/
+select e.first_name, e.manager_id, d.department_name from employees e
+left join departments d on e.department_id=d.department_id;
+--managers cedveli yoxdur deye manager_id den istifade etdim.
+
+/*2. SELECT with WHERE and OR clause
+Write a SQL statement to select all employees who are either 'IT_PROG' or 'SA_REP'.*/
+select first_name, job_id from employees where job_id='IT_PROG' or job_id='SA_REP';
+
+/*3. SELECT with Aggregate Function and GROUP BY clause
+Write a SQL statement to find the average salary for each job title.*/
+select job_title, avg(salary) from employees e
+left join jobs j on e.job_id=j.job_id
+group by job_title;
+
+/*4. SELECT with Subquery in WHERE clause
+Write a SQL statement to select all employees who earn more than the average salary.*/
+select first_name, salary from employees where salary>(select avg(salary) from employees);
+
+/*5. SELECT with UNION clause
+Write a SQL statement to combine the list of all department IDs in 'employees' and 'departments' table.*/
+select department_id from employees
+union
+select department_id from departments;
