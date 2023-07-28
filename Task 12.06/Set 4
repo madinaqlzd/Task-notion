@@ -1,0 +1,20 @@
+/*1. DDL operations: Alter the "employees_backup" table by dropping the "performance_score" column.*/
+alter table employees_backup drop column performance_score;
+
+/*2. DML operations (INSERT): Insert a new record into the "employees_backup" table. Use your own discretion for the values.*/
+insert into employees_backup 
+values(500, 'Jeniffer', 'Walkins', 'wjeniffer@gmail.com', 505005050, '28-JUL-2023', 'AD_PRES', 5000, null, 100, 50, null);
+
+/*3. Single Function (Number): 
+Use the ROUND function to round the salary of all employees to the nearest hundred in the "employees" table.*/
+select round(salary, -2) from employees;
+
+/*4. Aggregate Functions: Find the department with the highest number of employees in the "employees" table.*/
+select department_id, count(employee_id) from employees
+group by department_id
+order by count(employee_id) desc
+fetch first 1 rows only;
+
+/*5. Conversion Functions: Display the hire_date of all employees in the "employees" table 
+in the format 'YYYY-Q' where Q represents the quarter of the year.*/
+select to_char(hire_date, 'YYYY-Q') from employees;
