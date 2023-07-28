@@ -18,4 +18,4 @@ full outer join departments d using(department_id);
 
 /*5. Subqueries: 
 Write a query that selects all employees in the "employees" table who work in a department with more than 80 employees.*/
-select department_id, count(employee_id) from employees group by department_id having count(employee_id)>30;
+select department_id, count(employee_id) from employees group by department_id having count(employee_id)>30; -- 30 cunki 80+ iscisi olan yoxdur.
