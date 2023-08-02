@@ -1,0 +1,20 @@
+/*1. (Scalar Subquery) Find employees who have a salary above the average salary of all employees.*/
+select * from employees where salary>(select avg(salary) from employees);
+
+/*2. (Scalar Subquery) Identify the employees who work in a department with more than 10 employees.*/
+select department_id from employees  
+group by department_id
+having count(employee_id)>10;
+
+/*3. (Scalar Subquery) Find employees who have been with the company longer than the average tenure.*/
+select * from employees e
+inner join job_history j using(employee_id) 
+where extract(year from hire_date)>(select avg(extract(year from end_date)-extract(year from start_date)) from job_history);
+
+/*4. (Scalar Subquery) Discover employees who have a commission percentage above the average.*/
+select * from employees where commission_pct>(select avg(commission_pct) from employees);
+
+/*5. (Scalar Subquery) Determine employees whose salary is higher than the average salary for their job title.*/
+select e.employee_id, e.first_name, j.job_title, e.salary from employees e
+inner join jobs j using(job_id)
+where salary>(select avg(salary) from employees e2 inner join jobs j2 using(job_id) where j.job_title=j2.job_title);
