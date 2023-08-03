@@ -1,0 +1,20 @@
+/*1. (Correlated Subquery) Calculate the total number of employees and the total salary expenditure of the company.*/
+select count(employee_id), sum(salary) from employees;
+
+/*2. (Correlated Subquery) Compute the maximum, minimum, and average salary across all departments.*/
+select max(salary), min(salary), avg(salary) from employees
+group by department_id;
+
+/*3. (Correlated Subquery) Calculate the total number of departments and the average number of employees per department.*/
+select (select count(*) from departments) as total_departments,
+    (select avg(employee_count) from (select count(*) as employee_count from employees group by department_id
+    )) as average_employees_per_department from dual;
+
+/*4. (Correlated Subquery) Identify the total salary expenditure for each job title across the company.*/
+select job_title, sum(salary) from employees e
+inner join jobs j using(job_id)
+group by job_title;
+
+/*5. (Correlated Subquery) Calculate the number of managers and the total number of their subordinates across the company.*/
+select sum(manager_id), sum(employee_id) from employees
+group by manager_id;
