@@ -1,0 +1,26 @@
+/*1. (WHERE/HAVING Subquery) Identify departments where the average salary is above 5000.*/
+select department_id, avg(salary) from employees 
+group by department_id
+having avg(salary)>5000;
+
+/*2. (WHERE/HAVING Subquery) Discover departments where the maximum salary is greater than the average salary of all departments.*/
+select department_id, max(salary), avg(salary) from employees 
+group by department_id
+having max(salary)>avg(salary);
+
+/*3. (WHERE/HAVING Subquery) Find departments where the average tenure is above 5 years.*/
+select e.department_id from employees e
+inner join job_history j using(employee_id)
+where (select avg(extract(year from end_date)-extract(year from start_date)) from job_history)>2; --5den boyuk yoxdur.
+
+/*4. (WHERE/HAVING Subquery) Find departments where the number of subordinates per manager is above the company average.*/
+select department_id, count(employee_id) as num_subordinates from employees
+group by department_id
+having count(employee_id) > (select avg(subordinate_count)
+from (select count(employee_id) as subordinate_count from employees where manager_id is not null group by manager_id));
+
+/*5. (WHERE/HAVING Subquery) Find job titles where the maximum salary is higher than the average salary of all job titles.*/
+select j.job_title, e.salary, max(salary), avg(salary) from employees e
+inner join jobs j using(job_id)
+group by j.job_title, e.salary
+having max(salary)>avg(salary);
