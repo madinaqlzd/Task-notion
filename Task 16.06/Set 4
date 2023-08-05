@@ -1,0 +1,30 @@
+/*1. (IN Subquery) Generate a list of department IDs where the number of employees is 
+more than 10, and then find all employees working in these departments.*/
+select employee_id from employees where department_id in (
+select department_id from employees
+group by department_id
+having count(employee_id)>10);
+
+/*2. (IN Subquery) Make a list of managers who manage more than 5 employees, and then find all employees under these managers.*/
+select employee_id from employees where manager_id in(
+select manager_id from employees
+group by manager_id
+having count(employee_id)>5);
+
+/*3. (IN Subquery) Generate a list of departments that have more than two job categories, 
+and then find all employees working in these departments.*/
+select employee_id from employees where department_id in (
+select department_id from employees
+group by department_id
+having count(job_id)>2);
+
+/*4. (IN Subquery) Generate a list of job titles which have more than 10 holders, and find all employees holding these job titles.*/
+select e.employee_id from employees e
+inner join jobs j using (job_id) where j.job_title in (
+select j.job_title from jobs j inner join employees e using(job_id)
+group by j.job_title
+having count(employee_id)>10);
+
+/*5. (IN Subquery) Make a list of job titles which have vacancies, and then find all departments that have these vacancies.*/
+--vakansiyani hardan tapa bilerem
+???????????????????????????
